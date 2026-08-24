@@ -1,0 +1,24 @@
+var KAP_SI_3 = Class.create();
+KAP_SI_3.prototype = {
+    initialize: function() {
+    },
+getduration: function(res,open){
+var x=new GlideDateTime(res);
+var y=new GlideDateTime(open);
+var diff=x.getNumericValue()-y.getNumericValue();
+//return diff;
+return GlideDuration(diff);
+},
+    type: 'KAP_SI_3'
+};(function executeRule(current, previous /*null when async*/) {
+var res=current.getValue('resolved_at');
+var open=current.getValue('opened_at');
+if(res&&open){
+var si=new KAP_SI_3();
+var ans=si.getduration(res,open);
+current.setValue('u_calcduration',ans);
+current.update();
+}
+	// Add your code here
+
+})(current, previous);
