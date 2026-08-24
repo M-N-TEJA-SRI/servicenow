@@ -1,0 +1,22 @@
+(function executeRule(current, previous /*null when async*/) {
+var si=new KAP_SI_one();//name of the script include
+current.setValue('assignment_group',
+si.getassignmentgroup(current.getValue('rfc')
+));
+	// Add your code here
+
+})(current, previous);
+var KAP_SI_one = Class.create();
+KAP_SI_one.prototype = {
+    initialize: function() {
+    },
+getassignmentgroup: function(rfc){
+var gr=new GlideRecord('change_request');
+if(gr.get(rfc))//get the change request record from change request table
+{
+	return gr.getValue('assignment_group');//retrieves assignment group
+}
+return '';
+},
+    type: 'KAP_SI_one'
+};
