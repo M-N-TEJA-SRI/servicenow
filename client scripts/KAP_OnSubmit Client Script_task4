@@ -1,0 +1,39 @@
+function onSubmit() {
+
+    var email = g_form.getValue('email');//get the value filled in the email field
+    var ph = g_form.getValue('mobile_phone');//get the value filled in the phone number field
+
+    var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;//reg exp to check if it is a valid email
+    var phone_regex = /^[6-9]\d{9}$/;//reg exp to check if it is a valid phone
+
+    if (email_regex.test(email))//email matched the regex
+	 {
+
+        if (phone_regex.test(ph))//phone number matched the regex
+		 {
+            return true;//submit the form
+        }
+        else {
+            g_form.addErrorMessage('Sorry, enter a valid phone number.');//email matched but phone number didnt match
+
+            var x = g_form.getControl('mobile_phone');//stores html part of the field
+            x.focus();//sets focus
+
+            return false;//stops form submission
+        }
+
+    }
+    else {
+
+        g_form.addErrorMessage('Sorry, enter a valid email.');//email didnt match the regex
+
+        var y = g_form.getControl('email');//stores html block of code
+        y.focus();//sets focus
+
+        return false;//stops form submission
+    }
+}
+make the following active=false
+all->sys def->validation script
+type email has two entries
+type phone number has one entry
