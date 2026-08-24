@@ -1,0 +1,15 @@
+(function executeRule(current, previous /*null when async*/) {
+var gr=new GlideRecord('incident');//glides incident record
+gr.addActiveQuery();//retrieves records where active=true
+gr.addQuery('caller_id',current.getValue('caller_id'));//caller id of record is matched with the caller id of current record
+gr.query();
+if(gr.next())//returns true if query returns atleast one record
+{
+	gs.addInfoMessage('The caller currently has'+ gr.getRowCount()+' active Incidents.');//corresponding info message is printed
+}
+else{
+	gs.addInfoMessage('The caller has no active Incidents.');//corresponding info message is printed
+}
+	// Add your code here
+
+})(current, previous);
