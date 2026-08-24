@@ -1,0 +1,18 @@
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+if(newValue=='2')//return true if risk is high
+{
+	g_form.setMandatory('cab_required',true);//field is made mandatory
+	g_form.showFieldMsg('cab_required','CAB approval is mandatory for High Risk Changes.');//field message is displayed
+}
+else
+{
+	g_form.setMandatory('cab_required',false);//field is not mandatoru
+	g_form.clearValue('cab_required');//value in cab required field is cleared
+	g_form.hideFieldMsg('cab_required');//hides the display field message if any
+}
+   //Type appropriate comment here, and begin script below
+   
+}
