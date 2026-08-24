@@ -1,0 +1,11 @@
+(function executeRule(current, previous /*null when async*/) {
+var start=new GlideDateTime(current.getValue('sys_updated_on'));//The value is updated field is obtained and converted into date and time
+var curr=new GlideDateTime();//current date and time is stored here
+var diff=curr.getNumericValue()-start.getNumericValue();//difference between current date and time along with updated date and time if it is less than 24 hrs display a message
+if(diff<=24*3600*1000)//returns true if the record has been updated within 24 hrs
+{
+	gs.addInfoMessage('This Incident was recently updated. Please review the latest work notes before making changes.');//prints corresponding message
+}
+	// Add your code here
+
+})(current, previous);
