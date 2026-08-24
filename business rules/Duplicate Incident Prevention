@@ -1,0 +1,17 @@
+(function executeRule(current, previous /*null when async*/) {
+var gr=new GlideRecord('incident');//glide record for incident table
+gr.addActiveQuery();//fetches all records which have active=true
+gr.addQuery('caller_id',current.getValue('caller_id'));//runs a query to retrieve all records with same caller , current record caller id 
+gr.addQuery('short_description'.toLowerCase(),current.getValue('short_description').toLowerCase());//runs a query to retrieve all records with short description that matches to the short description of the current record
+gr.query();
+if(gr.next())//returns true if atleast one record exists
+{
+	current.setAbortAction(true);//if duplicate records persist then business rule is stopped
+	gs.addErrorMessage('There are '+gr.getRowCount()+' records with same caller and short description');//error message is printed
+}
+else{
+	gs.addInfoMessage('record has been inserted successfully');//if the record is inserted then info message is printed.
+}
+	// Add your code here
+
+})(current, previous);
