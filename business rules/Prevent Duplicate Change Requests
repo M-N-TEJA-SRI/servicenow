@@ -1,0 +1,18 @@
+(function executeRule(current, previous /*null when async*/) {
+var gr=new GlideRecord('change_request');//glides the change request table
+gr.addActiveQuery();//retrieves records where active=true
+gr.addQuery('cmdb_ci',current.getValue('cmdb_ci'));//retrieves records whose configuration item is same as the current record's configuration item
+gr.addQuery('start_date',current.getValue('start_date'));//similarly planned start date
+gr.query();
+if(gr.next())//returns true if atleast one such record exists
+{
+	gs.addErrorMessage('a record exists with same planned start date and configuration item');//corresponding error message is displayed
+	current.setAbortAction(true);//submission is terminated
+	
+}
+else{
+	gs.addInfoMessage('record has been inserted successfully');//message is printed once the record has been submitted 
+}
+	// Add your code here
+
+})(current, previous);
