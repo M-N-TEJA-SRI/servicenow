@@ -1,0 +1,15 @@
+(function executeRule(current, previous /*null when async*/) {
+var gr=new GlideRecord('incident_task');//glides incident task table
+gr.addActiveQuery();//retrieves all records where active=true
+gr.addQuery('incident',current.getUniqueValue());//fetches records which have incident field in incident task maps with the current incident sys id
+gr.query();
+while(gr.next())//loop continues till glide record has records
+{
+	gr.work_notes='Automatically closed because the parent Incident has been closed.';//corresponding work notes is added
+	gr.setValue('state','3');//state is set to closed complete
+	gr.update();//after br does not update automatically
+}
+//set active=false for Cascade closure of Incident Tasks BR if not it sets state of incident task as closed incomplete and add default work notes
+	// Add your code here
+
+})(current, previous);
