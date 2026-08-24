@@ -1,0 +1,3 @@
+current.work_notes='Added work notes because of add work notes button';
+current.update();
+action.setRedirectURL(current);
