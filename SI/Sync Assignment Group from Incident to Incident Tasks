@@ -1,0 +1,23 @@
+(function executeRule(current, previous /*null when async*/) {
+var si=new KAP_SI_five();
+si.updateinctask(current.getUniqueValue(),current.getValue('assignment_group'));
+
+	// Add your code here
+
+})(current, previous);
+var KAP_SI_five = Class.create();
+KAP_SI_five.prototype = {
+    initialize: function() {
+    },
+updateinctask: function(sys_id,assignment_group){
+var gr=new GlideRecord('incident_task');
+gr.addActiveQuery();
+gr.addQuery('incident',sys_id);
+gr.query();
+while(gr.next()){
+	gr.setValue('assignment_group',assignment_group);
+	gr.update();
+}
+},
+    type: 'KAP_SI_five'
+};
