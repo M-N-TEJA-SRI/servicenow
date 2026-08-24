@@ -1,0 +1,33 @@
+(function executeRule(current, previous /*null when async*/) {
+var gr=new GlideRecord('incident');//glides the incident table
+var gn=new GlideRecord('sys_user_group');//glides the group table
+if(current.getValue('assignment_group'))//if the newly changed assignment group has a value
+{
+	gr.addActiveQuery();//retrieves records where active=true
+	gr.addQuery('assignment_group',current.getValue('assignment_group'));//maps assignment group of record being updated with available records assignment group
+	gr.query();
+	
+        if (gn.get(current.getValue('assignment_group'))) //returns true if a record is found with the same assignment group as the group name
+		{
+            gn.setValue('u_open_inc_count', gr.getRowCount());//incident table record count is updated in the open inc count group field
+            gn.update();//after br does not save updates automatically 
+        }
+}
+if(previous.getValue('assignment_group'))//if the previously changed assignment group has a value
+{
+	gr.addActiveQuery();
+	gr.addQuery('assignment_group',previous.getValue('assignment_group'));
+	gr.query();
+	
+        if (gn.get(previous.getValue('assignment_group'))) //returns true if a record is found with the same assignment group as the group name
+		{
+            gn.setValue('u_open_inc_count', gr.getRowCount());
+            gn.update();
+        }
+}
+
+
+
+	// Add your code here
+
+})(current, previous);
