@@ -1,0 +1,19 @@
+(function executeRule(current, previous /*null when async*/) {
+var si=new KAP_SI_four();
+var ans=si.getlocation(current.getValue('caller_id'));
+current.getValue('location',ans);
+	// Add your code here
+
+})(current, previous);
+var KAP_SI_four = Class.create();
+KAP_SI_four.prototype = {
+    initialize: function() {
+    },
+getlocation: function(caller){
+var gr=new GlideRecord('sys_user');
+if(gr.get(caller)){
+	return gr.getValue('location');
+}
+},
+    type: 'KAP_SI_four'
+};
