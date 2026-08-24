@@ -1,0 +1,3 @@
+Hide Closed By, Closed and Close notes when Resolution Code is None 
+set this UI policy active=false to make the close notes to be visible in the other section tab
+Create a drop down of close code with values {successful, unsuccessful, successful with error}
