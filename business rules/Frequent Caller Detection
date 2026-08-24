@@ -1,0 +1,16 @@
+(function executeRule(current, previous /*null when async*/) {
+var gr=new GlideRecord('incident');//Glide record for incident table
+gr.addActiveQuery();//retrieves records which have active true
+gr.addQuery('caller_id',current.getValue('caller_id'));//caller id of records is mapped with the caller id of the current record
+gr.query();//query to run set of all bundled queries
+if(gr.getRowCount()>5)//as it is a before br it checks the no of active records prior to insertion of new record count >5 
+{
+	current.work_notes='This caller currently has multiple active incidents. Please review for any recurring issues before proceeding.';//corresponding work notes is added if condition holds true
+	gs.addInfoMessage('work notes has been added successfully');//info message is displayed telling that state has been updated successfully
+	
+}
+
+
+	// Add your code here
+
+})(current, previous);
