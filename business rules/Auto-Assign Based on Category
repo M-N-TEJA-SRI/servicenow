@@ -1,0 +1,19 @@
+(function executeRule(current, previous /*null when async*/) {
+var category=current.getValue('category');//get the value stored in the category field
+//based on the value in the category assignment group is populated
+if(category=='hardware'){
+current.setValue('assignment_group',gs.getProperty('KAP.hardware.support'));
+}
+else if(category=='software'){
+current.setValue('assignment_group',gs.getProperty('KAP.application.support'));
+}
+else if(category=='network'){
+current.setValue('assignment_group',gs.getProperty('KAP.network.support'));
+}
+else if(category=='email'){
+current.setValue('assignment_group',gs.getProperty('KAP.messaging.team'));
+}
+	// Add your code here
+
+})(current, previous);
+//before br
