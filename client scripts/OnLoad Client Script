@@ -1,0 +1,16 @@
+function onLoad() {
+   //Type appropriate comment here, and begin script below
+   var fields=['short_description','description','risk','assignment_group','assigned_to'];//Fields that are to be made readonly / editable
+   if(g_user.hasRole('admin'))//returns true if logged in user has admin role
+   {
+for(var i=0;i<fields.length;i++){
+	g_form.setReadOnly(fields[i],false);//making all fields editable
+}
+   }
+   else
+   {
+	for(var i=0;i<fields.length;i++){
+	g_form.setReadOnly(fields[i],true);//making all fields read only
+}
+   }  
+}
