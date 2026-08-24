@@ -1,0 +1,22 @@
+(function executeRule(current, previous /*null when async*/) {
+
+    var user_logged = gs.getUserID();//gets sys id of logged in user
+
+    var gr = new GlideRecord('sys_user_grmember');//glides group members table
+    gr.addQuery('user', user_logged);//retrieves records whose user field is equal to the sys id of the logged in user
+    gr.query();
+
+    var grps = [];//array to store all the groups
+
+    while (gr.next()) {
+        grps.push(gr.getValue('group'));//pushes each group into the array 
+    }
+
+    gs.addInfoMessage(grps.join(','));//prints the sys ids of each group
+
+    if (grps.length > 0)//this block is executed if grps has atleast one record
+	{
+        current.addQuery('assignment_group', 'IN', grps.join(','));//runs query whose assignment group is in the grps array
+    }
+
+})(current, previous);
