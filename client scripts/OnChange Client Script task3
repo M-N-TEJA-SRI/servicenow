@@ -1,0 +1,42 @@
+function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+   var ga=new GlideAjax('KAP_SI');//calling SI
+   ga.addParam('sysparm_name','getassignmentgroup');//Calling function
+if(newValue=='Hardware')//checking if the value is hardware
+{
+	ga.addParam('sysparm_category','Hardware');//passing the value
+	ga.getXMLAnswer(function(answer){
+g_form.setValue('assignment_group',answer);//getting the sys id from SI
+g_form.addInfoMessage('assignment group has been populated automatically');
+	});//Displaying the message
+}
+else if(newValue=='Software')//checking if the value is software
+{
+	ga.addParam('sysparm_category','Software');
+	ga.getXMLAnswer(function(answer){
+g_form.setValue('assignment_group',answer);//getting the sys id from SI
+g_form.addInfoMessage('assignment group has been populated automatically');//Displaying the message
+	});
+}
+else{
+	g_form.clearValue('assignment_group');//clear the assignment group in any other cases
+}
+   //Type appropriate comment here, and begin script below
+   
+}
+
+var KAP_SI = Class.create();
+KAP_SI.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+getassignmentgroup: function(){
+var category=this.getParameter('sysparm_category');//Getting the value from client script
+if(category=='Hardware'){
+	return gs.getProperty('KAP.hardware.support');//return hardware support sysid
+}
+else if(category=='Software'){
+	return gs.getProperty('KAP.application.support');//return application support sysid
+}
+},
+    type: 'KAP_SI'
+});
