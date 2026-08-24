@@ -1,0 +1,15 @@
+function onSubmit() {
+   //Type appropriate comment here, and begin script below
+   var start=new Date(g_form.getValue('start_date'));//getting the value of planned start date
+   var today=new Date();//Current date is stored
+  var diff=start.getTime()-today.getTime();//difference between both dates in milli seconds
+   if(diff<=24*3600*1000)//returns true if start date is not atleast 24 hrs ahead
+   {
+	g_form.addErrorMessage('Normal Change Requests must be planned at least 24 hours in advance. Please select a later Planned Start Date.');//shows error message
+	var z=g_form.getControl('start_date');//stores html code of this field
+	z.focus();//highlights the field if form is not submitted 
+	return false;//stops form submission
+   }
+   return true;//submits the form
+   
+}
